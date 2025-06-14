@@ -1,0 +1,12 @@
+### Updates and existing entity
+PUT http://localhost:4000/patients/223e4567-e89b-12d3-a456-426614174014
+Content-Type: application/json
+
+{
+  "name": "Lana Amrosaa",
+  "email": "Lolozzzz@bolosh.com",
+  "address": "123 main street22",
+  "dateOfBirth": "2023-09-09"
+}
+
+###
