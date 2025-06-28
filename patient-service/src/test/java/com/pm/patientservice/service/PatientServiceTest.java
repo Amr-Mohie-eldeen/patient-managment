@@ -1,5 +1,6 @@
 package com.pm.patientservice.service;
 
+import com.pm.patientservice.dto.PatientEventDTO;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
@@ -58,7 +59,7 @@ class PatientServiceTest {
         assertEquals(savedPatient.getName(), result.getName());
         assertEquals(savedPatient.getEmail(), result.getEmail());
         verify(billingServiceGrpcClient).createBillingAccount(any(), any(), any());
-        verify(kafkaProducer).sendEvent(any(Patient.class));
+        verify(kafkaProducer).sendEvent(any(PatientEventDTO.class));
     }
 
     @Test

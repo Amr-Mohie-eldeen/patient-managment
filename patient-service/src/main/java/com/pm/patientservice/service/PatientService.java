@@ -1,5 +1,6 @@
 package com.pm.patientservice.service;
 
+import com.pm.patientservice.dto.PatientEventDTO;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
@@ -45,7 +46,12 @@ public class PatientService {
         Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
         billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getName(), newPatient.getEmail());
 
-        kafkaProducer.sendEvent(newPatient);
+        kafkaProducer.sendEvent(new PatientEventDTO(
+                newPatient.getId().toString(),
+                newPatient.getName(),
+                newPatient.getEmail(),
+                "PATIENT_CREATED"
+        ));
         return PatientMapper.toDTO(newPatient);
     }
 

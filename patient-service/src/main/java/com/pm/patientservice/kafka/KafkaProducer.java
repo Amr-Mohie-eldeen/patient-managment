@@ -1,6 +1,6 @@
 package com.pm.patientservice.kafka;
 
-import com.pm.patientservice.model.Patient;
+import com.pm.patientservice.dto.PatientEventDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,12 +17,12 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendEvent(Patient patient) {
+    public void sendEvent(PatientEventDTO eventDTO) {
         PatientEvent event = PatientEvent.newBuilder()
-                .setPatientId(patient.getId().toString())
-                .setName(patient.getName())
-                .setEmail(patient.getEmail())
-                .setEventType("PATIENT_CREATED")
+                .setPatientId(eventDTO.getPatientId())
+                .setName(eventDTO.getName())
+                .setEmail(eventDTO.getEmail())
+                .setEventType(eventDTO.getEventType())
                 .build();
 
         try {
