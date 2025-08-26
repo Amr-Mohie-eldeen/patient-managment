@@ -109,7 +109,7 @@ class PatientControllerTest {
     }
 
     @Test
-    void shouldReturnBadRequestWhenPatientNotFound() throws Exception {
+    void shouldReturnNotFoundWhenPatientNotFound() throws Exception {
         // Given
         UUID id = UUID.randomUUID();
         PatientRequestDTO request = createPatientRequest();
@@ -120,7 +120,7 @@ class PatientControllerTest {
         mockMvc.perform(put("/patients/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request)))
-               .andExpect(status().isBadRequest())
+               .andExpect(status().isNotFound())
                .andExpect(jsonPath("$.message").value("Patient not found"));
     }
 
